@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="text-center">User Profile</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                            </svg>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Username:</label>
+                            <p class="form-control-static">{{ user.username }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email:</label>
+                            <p class="form-control-static">{{ user.email|default:"Not provided" }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Last Login:</label>
+                            <p class="form-control-static">{{ user.last_login }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Date Joined:</label>
+                            <p class="form-control-static">{{ user.date_joined }}</p>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <form action="{% url 'logout' %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger w-100">Logout</button>
+                            </form>
+                            <a href="{% url 'home' %}" class="btn btn-secondary">Back to Home</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
