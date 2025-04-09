@@ -1,26 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- Page Title (uses the article name to create a dynamic title) -->
     <title>{{ article.name }} - Article Manager</title>
+    <!-- Link to Bootstrap CSS for styling the page -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <style>
+        /* Custom styles for the article detail page */
         .article-detail {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background: #f9f9f9;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 800px; /* Limit the width of the article detail section */
+            margin: 20px auto; /* Center the section on the page */
+            padding: 20px; /* Add padding around the content */
+            background: #f9f9f9; /* Set a light background color */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow effect */
         }
         .article-detail h1 {
-            color: #007bff;
+            color: #007bff; /* Set the title color to a blue shade */
         }
         .article-detail p {
-            font-size: 1.1em;
-            line-height: 1.6;
+            font-size: 1.1em; /* Slightly larger font size for the content */
+            line-height: 1.6; /* Line spacing for better readability */
         }
         .back-button {
-            margin-top: 20px;
+            margin-top: 20px; /* Add space above the back button */
         }
     </style>
 </head>
@@ -28,56 +32,75 @@
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
         <div class="container">
+            <!-- Navbar Brand (links to the home page) -->
             <a class="navbar-brand" href="{% url 'home' %}">Article Manager</a>
+            
+            <!-- Navbar Toggler (for small screens to make the navbar collapsible) -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
+            <!-- Navbar Links -->
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
+                    <!-- Link to the Home Page -->
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'home' %}">Home</a>
                     </li>
+                    <!-- Link to the About Page (currently inactive) -->
                     <li class="nav-item">
                         <a class="nav-link" href="#">About</a>
                     </li>
+
+                    <!-- Conditional links based on user authentication -->
                     {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'profile' %}">Profile</a>
-                    </li>
+                        <!-- Link to the Profile Page for logged-in users -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+                        </li>
                     {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">Login</a>
-                    </li>
+                        <!-- Link to the Login Page for guests -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
                     {% endif %}
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Article Detail -->
+    <!-- Article Detail Section -->
     <div class="article-detail">
+        <!-- Article Name as the Heading -->
         <h1>{{ article.name }}</h1>
-        <p><strong>Born:</strong> {{ article.born }}</p>
-        <p><strong>Died:</strong> {{ article.died }}</p>
-        <p><strong>Nationality:</strong> {{ article.nationality }}</p>
-        <p><strong>Known For:</strong> {{ article.known_for }}</p>
-        <p><strong>Notable Work:</strong> {{ article.notable_work }}</p>
-        <p><strong>About:</strong> {{ article.about }}</p>
-        <p><strong>Year:</strong> {{ article.year }}</p>
-        <p><strong>Medium:</strong> {{ article.medium }}</p>
-        <p><strong>Dimensions:</strong> {{ article.dimensions }}</p>
-        <p><strong>Location:</strong> {{ article.location }}</p>
-        <p><strong>Designed By:</strong> {{ article.designed_by }}</p>
-        <p><strong>Developer:</strong> {{ article.developer }}</p>
+        
+        <!-- Displaying various article attributes -->
+        <p><strong>Born:</strong> {{ article.born }}</p> <!-- Article’s born year -->
+        <p><strong>Died:</strong> {{ article.died }}</p> <!-- Article’s death year -->
+        <p><strong>Nationality:</strong> {{ article.nationality }}</p> <!-- Nationality -->
+        <p><strong>Known For:</strong> {{ article.known_for }}</p> <!-- What the article is known for -->
+        <p><strong>Notable Work:</strong> {{ article.notable_work }}</p> <!-- Notable work related to the article -->
+        <p><strong>About:</strong> {{ article.about }}</p> <!-- A description of the article -->
+        <p><strong>Year:</strong> {{ article.year }}</p> <!-- Year of the article's creation -->
+        <p><strong>Medium:</strong> {{ article.medium }}</p> <!-- Medium of the article (e.g., painting, sculpture) -->
+        <p><strong>Dimensions:</strong> {{ article.dimensions }}</p> <!-- Dimensions of the article -->
+        <p><strong>Location:</strong> {{ article.location }}</p> <!-- Where the article is located -->
+        <p><strong>Designed By:</strong> {{ article.designed_by }}</p> <!-- Person who designed the article -->
+        <p><strong>Developer:</strong> {{ article.developer }}</p> <!-- Developer or creator of the article -->
+
+        <!-- Back Button to navigate back to the home page -->
         <a href="{% url 'home' %}" class="btn btn-primary back-button">Back to Home</a>
-        <!-- Add this near the bottom -->
+
+        <!-- Edit and Delete buttons for authorized users (tutor or superuser) -->
         {% if is_tutor or user.is_superuser %}
+        <!-- Button to edit the article in the admin panel -->
         <a href="/admin/app_1/article/{{ article.id }}/change/" class="btn btn-warning">Edit</a>
+        <!-- Button to delete the article from the admin panel -->
         <a href="/admin/app_1/article/{{ article.id }}/delete/" class="btn btn-danger">Delete</a>
         {% endif %}
     </div>
 
-    <!-- Bootstrap JS -->
+    <!-- Bootstrap JS (for the navbar toggle and other interactive elements) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
